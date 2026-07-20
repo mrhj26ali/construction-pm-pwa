@@ -1,0 +1,31 @@
+import path from "path"
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'Construction PM Platform',
+        short_name: 'ConstructPM',
+        theme_color: '#2c4a6e',
+        background_color: '#f8fafc',
+        display: 'standalone',
+        icons: [],
+      },
+    }),
+  ],
+  resolve: {
+    alias: { "@": path.resolve(__dirname, "./src") },
+  },
+  server: {
+    proxy: {
+      '/api': { target: 'http://localhost:8000', changeOrigin: true },
+    },
+  },
+})
