@@ -35,7 +35,7 @@ async function fetchCsrfToken(): Promise<string> {
   return token
 }
 
-async function getCsrfToken(): Promise<string> {
+export async function getCsrfToken(): Promise<string> {
   return csrfToken ?? fetchCsrfToken()
 }
 

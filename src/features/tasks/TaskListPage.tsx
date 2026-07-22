@@ -4,6 +4,8 @@ import { useProjectTasks, useAddTaskDependency } from './hooks'
 import { NewTaskDialog } from './NewTaskDialog'
 import { GanttView } from './GanttView'
 import { KanbanView } from './KanbanView'
+import { DocumentUpload } from '@/features/documents/DocumentUpload'
+import { DocumentList } from '@/features/documents/DocumentList'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -11,7 +13,7 @@ import { Loader2 } from 'lucide-react'
 import { ApiError } from '@/lib/apiClient'
 import type { TaskRecord } from './types'
 
-const sectionTabs = ['Tasks', 'Requests', 'Field Data'] as const
+const sectionTabs = ['Tasks', 'Documents', 'Requests', 'Field Data'] as const
 const viewTabs = ['List', 'Gantt', 'Kanban'] as const
 
 type SectionTab = (typeof sectionTabs)[number]
@@ -100,6 +102,15 @@ export function TaskListPage() {
   }
 
   function renderSection() {
+    if (activeSection === 'Documents') {
+      return (
+        <div className="space-y-6">
+          <DocumentUpload projectName={projectId ?? ''} />
+          <DocumentList projectName={projectId ?? ''} />
+        </div>
+      )
+    }
+
     if (activeSection === 'Requests') {
       return (
         <div className="rounded-xl border border-dashed border-surface-border bg-surface-card p-6 text-sm text-gray-600">
