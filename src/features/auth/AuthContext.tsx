@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 import { loginRequest, getLoggedUser, logoutRequest } from './api'
+import { clearCsrfToken } from '@/lib/apiClient'
 import type { User } from '@/types/auth'
 
 interface AuthContextValue {
@@ -26,8 +27,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function logout() {
-    await logoutRequest()
-    setUser(null)
+    try {
+      await logoutRequest()
+      setUser(null)
+    } finally {
+      clearCsrfToken()
+    }
   }
 
   return (

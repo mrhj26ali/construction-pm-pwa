@@ -1,3 +1,4 @@
+﻿===== src\lib\apiClient.ts =====
 const BASE_URL = '/api'
 let csrfToken: string | undefined
 
@@ -70,3 +71,15 @@ export async function apiRequest<T>(
 
   return res.json()
 }
+
+
+===== src\lib\utils.ts =====
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+
+
