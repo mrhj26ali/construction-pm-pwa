@@ -16,7 +16,32 @@ export default defineConfig({
         theme_color: '#2c4a6e',
         background_color: '#f8fafc',
         display: 'standalone',
-        icons: [],
+        icons: [
+  {
+    src: '/icons/manifest-icon-192.maskable.png',
+    sizes: '192x192',
+    type: 'image/png',
+    purpose: 'any',
+  },
+  {
+    src: '/icons/manifest-icon-192.maskable.png',
+    sizes: '192x192',
+    type: 'image/png',
+    purpose: 'maskable',
+  },
+  {
+    src: '/icons/manifest-icon-512.maskable.png',
+    sizes: '512x512',
+    type: 'image/png',
+    purpose: 'any',
+  },
+  {
+    src: '/icons/manifest-icon-512.maskable.png',
+    sizes: '512x512',
+    type: 'image/png',
+    purpose: 'maskable',
+  },
+],
       },
     }),
   ],
