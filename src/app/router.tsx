@@ -3,8 +3,9 @@ import { AppShell } from './AppShell'
 import { AuthGuard } from './AuthGuard'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
-//import { ProjectsListPage } from '@/features/projects/ProjectsListPage'
-//import { NewProjectPage } from '@/features/projects/NewProjectPage'
+import { ProjectsListPage } from '@/features/projects/ProjectsListPage'
+import { NewProjectPage } from '@/features/projects/NewProjectPage'
+import { TaskListPage } from '@/features/tasks/TaskListPage'
 import { AdminPage } from '@/features/admin/AdminPage'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -14,12 +15,12 @@ export const router = createBrowserRouter([
     element: <AuthGuard />,
     children: [
       {
-
         element: <AppShell />,
         children: [
           { path: '/dashboard', element: <DashboardPage /> },
-         // { path: '/projects', element: <ProjectsListPage /> },
-         // { path: '/projects/new', element: <NewProjectPage /> },
+          { path: '/projects', element: <ProjectsListPage /> },
+          { path: '/projects/new', element: <NewProjectPage /> },
+          { path: '/projects/:projectId', element: <TaskListPage /> },
           { path: '/admin', element: <AdminPage /> },
         ],
       },
