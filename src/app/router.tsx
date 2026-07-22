@@ -7,6 +7,8 @@ import { ProjectsListPage } from '@/features/projects/ProjectsListPage'
 import { NewProjectPage } from '@/features/projects/NewProjectPage'
 import { TaskListPage } from '@/features/tasks/TaskListPage'
 import { BudgetPage } from '@/features/budget/BudgetPage'
+import { ReportsPage } from '@/features/reports/ReportsPage'
+import { SearchPage } from '@/features/search/SearchPage'
 import { AdminPage } from '@/features/admin/AdminPage'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -23,6 +25,8 @@ export const router = createBrowserRouter([
           { path: '/projects/new', element: <NewProjectPage /> },
           { path: '/projects/:projectId', element: <TaskListPage /> },
           { path: '/budget', element: <BudgetPage /> },
+          { path: '/reports', element: <ReportsPage /> },
+          { path: '/search', element: <SearchPage /> },
           { path: '/admin', element: <AdminPage /> },
         ],
       },
