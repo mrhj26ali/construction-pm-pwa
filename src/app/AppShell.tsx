@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import {
-  LayoutDashboard, FolderKanban, FileText, Wallet, BarChart3, Users, ClipboardList, Sparkles,
+  LayoutDashboard, FolderKanban, FileText, Wallet, BarChart3, Users, ClipboardList, Sparkles, Search,
 } from 'lucide-react'
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { to: '/requests', label: 'Requests', icon: ClipboardList },
   { to: '/budget', label: 'Budget', icon: Wallet },
   { to: '/reports', label: 'Reports', icon: BarChart3 },
+  { to: '/search', label: 'Search', icon: Search },
   { to: '/admin', label: 'Admin', icon: Users },
 ]
 const aiNavItems = [
