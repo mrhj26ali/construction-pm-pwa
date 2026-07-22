@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { type SubmitHandler, type Resolver, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useCreateProject } from './hooks'
+import { useCreateProject, useProjectTemplates } from './hooks'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,6 +13,7 @@ import { ApiError } from '@/lib/apiClient'
 const projectSchema = z
   .object({
     project_name: z.string().min(1, 'Project name is required'),
+    project_template: z.string().optional(),
     status: z.string().min(1, 'Status is required'),
     project_type: z.string().min(1, 'Project type is required'),
     priority: z.string().min(1, 'Priority is required'),
@@ -38,6 +39,7 @@ export function NewProjectPage() {
   const navigate = useNavigate()
   const [serverError, setServerError] = useState<string | null>(null)
   const createProject = useCreateProject()
+  const { data: templates, isLoading: isTemplateLoading, error: templateError } = useProjectTemplates()
 
   const {
     register,
@@ -46,6 +48,7 @@ export function NewProjectPage() {
   } = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema) as Resolver<ProjectFormValues>,
     defaultValues: {
+      project_template: '',
       status: 'Open',
       project_type: 'Internal',
       priority: 'Medium',
@@ -56,7 +59,10 @@ export function NewProjectPage() {
   const onSubmit: SubmitHandler<ProjectFormValues> = async (values) => {
     setServerError(null)
     try {
-      await createProject.mutateAsync(values)
+      await createProject.mutateAsync({
+        ...values,
+        project_template: values.project_template || undefined,
+      })
       navigate('/projects')
     } catch (err) {
       const message =
@@ -90,6 +96,26 @@ export function NewProjectPage() {
               <Input id="project_name" {...register('project_name')} />
               {errors.project_name && (
                 <p className="text-sm text-status-overdue">{errors.project_name.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="project_template">Project template</Label>
+              <select
+                id="project_template"
+                className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+                {...register('project_template')}
+                disabled={isTemplateLoading}
+              >
+                <option value="">No template</option>
+                {templates?.map((template) => (
+                  <option key={template.name} value={template.name}>
+                    {template.project_template_name || template.name}
+                  </option>
+                ))}
+              </select>
+              {templateError && (
+                <p className="text-sm text-status-overdue">Could not load project templates.</p>
               )}
             </div>
 

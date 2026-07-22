@@ -7,6 +7,12 @@ export interface ProjectRecord {
   expected_start_date: string
   expected_end_date: string
   percent_complete: number
+  project_template?: string
+}
+
+export interface ProjectTemplateRecord {
+  name: string
+  project_template_name: string
 }
 
 export interface CreateProjectPayload {
@@ -17,4 +23,5 @@ export interface CreateProjectPayload {
   expected_start_date: string
   expected_end_date: string
   percent_complete: number
+  project_template?: string
 }

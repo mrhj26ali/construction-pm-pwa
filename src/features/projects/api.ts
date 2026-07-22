@@ -1,9 +1,16 @@
 import { apiRequest } from '@/lib/apiClient'
-import type { CreateProjectPayload, ProjectRecord } from './types'
+import type { CreateProjectPayload, ProjectRecord, ProjectTemplateRecord } from './types'
 
 export async function listProjects(): Promise<ProjectRecord[]> {
   const res = await apiRequest<{ data: ProjectRecord[] }>(
-    '/resource/Project?fields=["name","project_name","status","project_type","priority","expected_start_date","expected_end_date","percent_complete"]&limit_page_length=0'
+    '/resource/Project?fields=["name","project_name","status","project_type","priority","expected_start_date","expected_end_date","percent_complete","project_template"]&limit_page_length=0'
+  )
+  return res.data
+}
+
+export async function listProjectTemplates(): Promise<ProjectTemplateRecord[]> {
+  const res = await apiRequest<{ data: ProjectTemplateRecord[] }>(
+    '/resource/Project%20Template?fields=["name","project_template_name"]&limit_page_length=0'
   )
   return res.data
 }
